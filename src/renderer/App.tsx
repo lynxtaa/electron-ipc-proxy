@@ -20,9 +20,14 @@ export default function App() {
 	}
 
 	return (
-		<div>
+		<div style={{ padding: '2rem' }}>
 			<p>
-				<span style={{ display: 'inline-block', marginRight: '1rem' }}>{counter}</span>
+				Counter:{' '}
+				<span
+					style={{ display: 'inline-block', marginRight: '1rem', fontSize: '1.3rem' }}
+				>
+					{counter}
+				</span>
 				<button type="button" onClick={increment}>
 					+
 				</button>

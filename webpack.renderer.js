@@ -3,6 +3,7 @@ const path = require('path')
 
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { HotModuleReplacementPlugin } = require('webpack')
 
 module.exports = env => ({
@@ -21,6 +22,13 @@ module.exports = env => ({
 				use: {
 					loader: 'babel-loader',
 				},
+			},
+			{
+				test: /\.css$/i,
+				use: [
+					env.production ? MiniCssExtractPlugin.loader : 'style-loader',
+					'css-loader',
+				],
 			},
 		],
 	},
@@ -42,6 +50,11 @@ module.exports = env => ({
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, 'public', 'index.html'),
 		}),
+		env.production &&
+			new MiniCssExtractPlugin({
+				filename: '/css/[name].css',
+				chunkFilename: '/css/[name].chunk.css',
+			}),
 		!env.production && new HotModuleReplacementPlugin(),
 		!env.production && new ReactRefreshWebpackPlugin(),
 	].filter(Boolean),
