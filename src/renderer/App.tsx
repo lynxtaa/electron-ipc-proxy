@@ -1,35 +1,25 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
+import useSWR from 'swr'
 
 import { ipcProxy } from './ipcProxy'
 
 export default function App() {
-	const [counter, setCounter] = useState<number>()
 	const [text, setText] = useState<string>('')
 
-	const loadCounter = useCallback(
-		() => ipcProxy.getCounter().then(counter => setCounter(counter)),
-		[],
-	)
-
-	useEffect(() => {
-		loadCounter()
-	}, [loadCounter])
+	const { data: counter, mutate } = useSWR('counter', () => ipcProxy.getCounter())
 
 	return (
 		<div>
 			<p>
 				<span style={{ display: 'inline-block', marginRight: '1rem' }}>{counter}</span>
-				<button
-					type="button"
-					onClick={() => ipcProxy.increment().then(() => loadCounter())}
-				>
+				<button type="button" onClick={() => ipcProxy.increment().finally(mutate)}>
 					+
 				</button>
 			</p>
 			<form
 				onSubmit={event => {
 					event.preventDefault()
-					ipcProxy.setCounter(Number(text)).then(() => loadCounter())
+					ipcProxy.setCounter(Number(text)).finally(mutate)
 				}}
 			>
 				<label htmlFor="counter" style={{ marginRight: '1rem' }}>
