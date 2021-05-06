@@ -1,23 +1,7 @@
-import { ipcRenderer } from 'electron'
+import { getRemote } from '../ipc/ipc-renderer'
+import { MainApiType } from '../main/index'
 
-import { MainApiType } from '../main/ipc'
-
-type ApiProxy = {
-	[key in keyof MainApiType]: (
-		...args: Parameters<MainApiType[key]>
-	) => Promise<ReturnType<MainApiType[key]>>
-}
-
-const proxy = new Proxy(
-	{},
-	{
-		get(target, name) {
-			return function (...params: unknown[]) {
-				return ipcRenderer.invoke('api', { method: name, params })
-			}
-		},
-	},
-) as ApiProxy
+const proxy = getRemote<MainApiType>()
 
 const counterEl = document.createElement('div')
 document.body.append(counterEl)

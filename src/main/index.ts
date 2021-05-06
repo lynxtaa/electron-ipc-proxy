@@ -1,8 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import path from 'path'
 import { pathToFileURL } from 'url'
-
-import { handleIPC } from './ipc'
+import { expose } from '../ipc/ipc-main'
 
 let mainWindow: Electron.BrowserWindow | null
 
@@ -40,4 +39,18 @@ app.on('window-all-closed', () => {
 
 app.on('ready', createWindow)
 
-handleIPC()
+let counter = 0
+
+const mainAPI = {
+	getCounter: () => counter,
+	increment: () => {
+		counter++
+	},
+	setCounter(n: number) {
+		counter = n
+	},
+}
+
+export type MainApiType = typeof mainAPI
+
+expose(mainAPI)
