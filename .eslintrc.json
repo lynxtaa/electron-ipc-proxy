@@ -1,0 +1,28 @@
+{
+	"extends": [
+		"react-app",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
+		"plugin:import/typescript"
+	],
+	"rules": {
+		"no-console": "warn",
+		"react/react-in-jsx-scope": "off",
+		"import/order": [
+			"warn",
+			{ "alphabetize": { "order": "asc" }, "newlines-between": "always" }
+		],
+		"import/newline-after-import": "warn",
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/no-explicit-any": "off"
+	},
+	"overrides": [
+		{
+			"files": ["*.tsx"],
+			"rules": {
+				"@typescript-eslint/explicit-module-boundary-types": "off"
+			}
+		}
+	]
+}

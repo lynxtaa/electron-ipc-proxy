@@ -1,11 +1,16 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-module.exports = {
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { HotModuleReplacementPlugin } = require('webpack')
+
+module.exports = env => ({
+	mode: env.production ? 'production' : 'development',
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],
 	},
-	entry: path.resolve(__dirname, 'src', 'renderer', 'index.ts'),
+	entry: path.resolve(__dirname, 'src', 'renderer', 'index.tsx'),
 	target: 'electron-renderer',
 	devtool: 'source-map',
 	module: {
@@ -33,5 +38,11 @@ module.exports = {
 		filename: 'js/[name].js',
 		publicPath: './',
 	},
-	plugins: [new HtmlWebpackPlugin()],
-}
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: path.join(__dirname, 'public', 'index.html'),
+		}),
+		!env.production && new HotModuleReplacementPlugin(),
+		!env.production && new ReactRefreshWebpackPlugin(),
+	].filter(Boolean),
+})

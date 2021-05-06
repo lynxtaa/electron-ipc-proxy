@@ -1,6 +1,8 @@
-import { app, BrowserWindow } from 'electron'
 import path from 'path'
 import { pathToFileURL } from 'url'
+
+import { app, BrowserWindow } from 'electron'
+
 import { expose } from '../ipc/ipc-main'
 
 let mainWindow: Electron.BrowserWindow | null

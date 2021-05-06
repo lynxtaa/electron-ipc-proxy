@@ -4,7 +4,9 @@ type ApiProxy<T extends Record<string, (...args: any[]) => unknown>> = {
 	[key in keyof T]: (...args: Parameters<T[key]>) => Promise<ReturnType<T[key]>>
 }
 
-export function getRemote<T extends Record<string, (...args: any[]) => unknown>>() {
+export function getRemote<
+	T extends Record<string, (...args: any[]) => unknown>
+>(): ApiProxy<T> {
 	return new Proxy(
 		{},
 		{
