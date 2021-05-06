@@ -8,20 +8,26 @@ export default function App() {
 
 	const { data: counter, mutate } = useSWR('counter', () => ipcProxy.getCounter())
 
+	async function increment() {
+		await ipcProxy.increment()
+		mutate()
+	}
+
+	async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+		event.preventDefault()
+		await ipcProxy.setCounter(Number(text))
+		mutate()
+	}
+
 	return (
 		<div>
 			<p>
 				<span style={{ display: 'inline-block', marginRight: '1rem' }}>{counter}</span>
-				<button type="button" onClick={() => ipcProxy.increment().finally(mutate)}>
+				<button type="button" onClick={increment}>
 					+
 				</button>
 			</p>
-			<form
-				onSubmit={event => {
-					event.preventDefault()
-					ipcProxy.setCounter(Number(text)).finally(mutate)
-				}}
-			>
+			<form onSubmit={onSubmit}>
 				<label htmlFor="counter" style={{ marginRight: '1rem' }}>
 					Counter
 				</label>
