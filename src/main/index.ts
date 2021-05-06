@@ -8,9 +8,10 @@ function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 1100,
 		height: 700,
-		backgroundColor: '#191622',
 		webPreferences: {
-			nodeIntegration: true,
+			nodeIntegration: false,
+			contextIsolation: true,
+			enableRemoteModule: false,
 		},
 	})
 

@@ -4,10 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],
-		mainFields: ['main', 'module', 'browser'],
 	},
-	entry: path.resolve(__dirname, 'src', 'App.tsx'),
-	target: 'electron-renderer',
+	entry: path.resolve(__dirname, 'src', 'renderer', 'index.ts'),
+	target: 'web',
 	devtool: 'source-map',
 	module: {
 		rules: [

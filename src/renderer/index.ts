@@ -1,0 +1,3 @@
+alert('KEK')
+
+export {}
