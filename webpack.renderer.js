@@ -6,7 +6,7 @@ module.exports = {
 		extensions: ['.tsx', '.ts', '.js'],
 	},
 	entry: path.resolve(__dirname, 'src', 'renderer', 'index.ts'),
-	target: 'web',
+	target: 'electron-renderer',
 	devtool: 'source-map',
 	module: {
 		rules: [

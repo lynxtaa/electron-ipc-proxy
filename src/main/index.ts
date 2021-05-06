@@ -2,6 +2,8 @@ import { app, BrowserWindow } from 'electron'
 import path from 'path'
 import { pathToFileURL } from 'url'
 
+import { handleIPC } from './ipc'
+
 let mainWindow: Electron.BrowserWindow | null
 
 function createWindow() {
@@ -9,8 +11,8 @@ function createWindow() {
 		width: 1100,
 		height: 700,
 		webPreferences: {
-			nodeIntegration: false,
-			contextIsolation: true,
+			nodeIntegration: true,
+			contextIsolation: false,
 			enableRemoteModule: false,
 		},
 	})
@@ -37,3 +39,5 @@ app.on('window-all-closed', () => {
 })
 
 app.on('ready', createWindow)
+
+handleIPC()
