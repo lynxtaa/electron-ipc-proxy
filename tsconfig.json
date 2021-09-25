@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"target": "es2019",
+		"lib": ["ESNext"],
+		"skipLibCheck": true,
+		"allowJs": false,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noUncheckedIndexedAccess": true,
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"declaration": true,
+		"declarationMap": true,
+		"noUnusedLocals": true,
+		"outDir": "dist"
+	},
+	"include": ["src", "test"]
+}

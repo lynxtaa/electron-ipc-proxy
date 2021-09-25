@@ -1,0 +1,4 @@
+{
+	"resetMocks": true,
+	"roots": ["<rootDir>/test"]
+}
