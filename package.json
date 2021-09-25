@@ -28,7 +28,7 @@
     "pre-commit": "npx pretty-quick --staged"
   },
   "peerDependencies": {
-    "electron": ">= 10.0.0-beta.1"
+    "electron": ">= 7.0.0"
   },
   "scripts": {
     "prepublishOnly": "npm run build",
